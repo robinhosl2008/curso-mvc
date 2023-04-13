@@ -26,6 +26,10 @@
     width: 300px;
 }
 
+.videos__item iframe.img-404 img {
+    width: 100%;
+}  
+
 /* grid vídeos */
 
 .descricao-video {

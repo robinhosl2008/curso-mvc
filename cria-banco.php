@@ -5,7 +5,7 @@ $pdo = new PDO("sqlite:{$dbPath}");
 
 $dbSql = "
     CREATE TABLE IF NOT EXISTS videos (
-        id INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         url TEXT,
         title TEXT
     );

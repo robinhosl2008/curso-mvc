@@ -24,11 +24,11 @@ $videoList = $pdo->query("SELECT * FROM videos;")->fetchAll(\PDO::FETCH_ASSOC);
     <header>
 
         <nav class="cabecalho">
-            <a class="logo" href="./index.html"></a>
+            <a class="logo" href="./index.php"></a>
 
             <div class="cabecalho__icones">
-                <a href="./pages/enviar-video.html" class="cabecalho__videos"></a>
-                <a href="./pages/login.html" class="cabecalho__sair">Sair</a>
+                <a href="./pages/enviar-video.php" class="cabecalho__videos"></a>
+                <a href="./pages/login.php" class="cabecalho__sair">Sair</a>
             </div>
         </nav>
 
@@ -48,7 +48,7 @@ $videoList = $pdo->query("SELECT * FROM videos;")->fetchAll(\PDO::FETCH_ASSOC);
                     <img src="./img/logo.png" alt="logo canal alura">
                     <h3><?php echo $video['title']; ?></h3>
                     <div class="acoes-video">
-                        <a href="./pages/enviar-video.html">Editar</a>
+                        <a href="./pages/enviar-video.php?id=<?php echo $video['id']; ?>">Editar</a>
                         <a href="remove-video.php?id=<?php echo $video['id']; ?>">Excluir</a>
                     </div>
                 </div>

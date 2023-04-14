@@ -1,3 +1,24 @@
+<?php
+
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+$video = [
+    'id' => '',
+    'url' => '',
+    'title' => ''
+];
+
+if ($id !== false) {
+    $dbPath = __DIR__ . "/../db.sqlite";
+    $pdo = new PDO("sqlite:{$dbPath}");
+
+    $statement = $pdo->query("SELECT * FROM videos WHERE id = ?;");
+    $statement->bindValue(1, $id);
+    $statement->execute();
+
+    $video = $statement->fetch(\PDO::FETCH_ASSOC);
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -20,11 +41,11 @@
     <header>
 
         <nav class="cabecalho">
-            <a class="logo" href="../index.html"></a>
+            <a class="logo" href="../index.php"></a>
 
             <div class="cabecalho__icones">
-                <a href="./enviar-video.html" class="cabecalho__videos"></a>
-                <a href="../pages/login.html" class="cabecalho__sair">Sair</a>
+                <a href="./enviar-video.php" class="cabecalho__videos"></a>
+                <a href="../pages/login.php" class="cabecalho__sair">Sair</a>
             </div>
         </nav>
 
@@ -32,19 +53,22 @@
 
     <main class="container">
 
-        <form class="container__formulario" method="post" action="../novo-video.php">
+        <form class="container__formulario" method="post" 
+            action="<?php echo $id !== false ? '../editar-video.php' : '../novo-video.php';?>">
             <h2 class="formulario__titulo">Envie um vídeo!</h3>
+                <input type="hidden" id="id" name="id" value="<?php echo (is_array($video) && array_key_exists('id', $video)) ? $video['id'] : ''; ?>" />
                 <div class="formulario__campo">
                     <label class="campo__etiqueta" for="url">Link embed</label>
                     <input name="url" class="campo__escrita" required
-                        placeholder="Por exemplo: https://www.youtube.com/embed/FAY1K2aUg5g" id='url' />
+                        placeholder="Por exemplo: https://www.youtube.com/embed/FAY1K2aUg5g" id='url' 
+                        value="<?php echo (is_array($video) && array_key_exists('url', $video)) ? $video['url'] : ''; ?>" />
                 </div>
 
 
                 <div class="formulario__campo">
                     <label class="campo__etiqueta" for="titulo">Titulo do vídeo</label>
                     <input name="titulo" class="campo__escrita" required placeholder="Neste campo, dê o nome do vídeo"
-                        id='titulo' />
+                        id='titulo' value="<?php echo (is_array($video) && array_key_exists('title', $video)) ? $video['title'] : ''; ?>" />
                 </div>
 
                 <input class="formulario__botao" type="submit" value="Enviar" />

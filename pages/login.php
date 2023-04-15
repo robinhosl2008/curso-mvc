@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https:/fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estilos-form.css">
@@ -20,11 +20,11 @@
     <header>
 
         <nav class="cabecalho">
-            <a class="logo" href="../index.html"></a>
+            <a class="logo" href="./"></a>
 
             <div class="cabecalho__icones">
-                <a href="./enviar-video.html" class="cabecalho__videos"></a>
-                <a href="../pages/login.html" class="cabecalho__sair">Sair</a>
+                <a href="./adicionar" class="cabecalho__videos"></a>
+                <a href="./login" class="cabecalho__sair">Sair</a>
             </div>
         </nav>
 

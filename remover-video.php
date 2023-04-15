@@ -3,7 +3,7 @@
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 if (!$id) {
-    header("location: /index.php?success=false");
+    header("location: /?success=false");
     exit();
 }
 
@@ -15,8 +15,8 @@ $statemant = $pdo->prepare($sql);
 $statemant->bindValue(1, $id);
 
 if ($statemant->execute() === true) {
-    header("location: /index.php?success=true");
+    header("location: /?success=true");
     exit();
 }
 
-header("location: /index.php?success=false");
+header("location: /?success=false");

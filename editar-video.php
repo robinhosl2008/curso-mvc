@@ -17,10 +17,10 @@ if ($id !== false) {
         $statement->bindValue(3, $id);
         
         if ($statement->execute()) {
-            header("location: ./index.php?success=1&message=Vídeo Atualizado");
+            header("location: ./?success=1&message=Vídeo Atualizado");
             exit();
         }
 
-        header("location: ./index.php?success=0&message=Erro ao atualizar o vídeo");
+        header("location: ./?success=0&message=Erro ao atualizar o vídeo");
     }
 }

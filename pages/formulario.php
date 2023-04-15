@@ -26,7 +26,7 @@ if ($id !== false) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https:/fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estilos-form.css">
@@ -41,7 +41,7 @@ if ($id !== false) {
     <header>
 
         <nav class="cabecalho">
-            <a class="logo" href="../index.php"></a>
+            <a class="logo" href="/"></a>
 
             <div class="cabecalho__icones">
                 <a href="./enviar-video.php" class="cabecalho__videos"></a>
@@ -60,7 +60,7 @@ if ($id !== false) {
                 <div class="formulario__campo">
                     <label class="campo__etiqueta" for="url">Link embed</label>
                     <input name="url" class="campo__escrita" required
-                        placeholder="Por exemplo: https://www.youtube.com/embed/FAY1K2aUg5g" id='url' 
+                        placeholder="Por exemplo: https:/www.youtube.com/embed/FAY1K2aUg5g" id='url' 
                         value="<?php echo (is_array($video) && array_key_exists('url', $video)) ? $video['url'] : ''; ?>" />
                 </div>
 

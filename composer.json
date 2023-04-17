@@ -1,0 +1,18 @@
+{
+    "name": "robson/curso-mvc",
+    "autoload": {
+        "psr-4": {
+            "Alura\\CursoMvc\\": "src/"
+        },
+        "classmap": [
+            "config/"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Robson Souza Lourenço",
+            "email": "robson.lourenco.pacheco@gmail.com"
+        }
+    ],
+    "require": {}
+}

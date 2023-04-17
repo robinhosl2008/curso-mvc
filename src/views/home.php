@@ -1,9 +1,14 @@
 <?php
 
+require_once '../vendor/autoload.php';
+
+use Alura\CursoMvc\Repository\VideoRepository;
+
 $dbPath = __DIR__ . "/db.sqlite";
 $pdo = new PDO("sqlite:{$dbPath}");
-$videoList = $pdo->query("SELECT * FROM videos;")->fetchAll(\PDO::FETCH_ASSOC);
 
+$repository = new VideoRepository($pdo);
+$videos = $repository->getAllVideos();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -36,20 +41,20 @@ $videoList = $pdo->query("SELECT * FROM videos;")->fetchAll(\PDO::FETCH_ASSOC);
 
     <ul class="videos__container" alt="videos alura">
         <?php
-        foreach ($videoList as $video):
-            if (str_starts_with($video['url'], "http")) {
+        foreach ($videos as $video):
+            if (str_starts_with($video->getUrl(), "http")) {
         ?>
             <li class="videos__item">
-                <iframe width="100%" height="72%" src="<?php echo $video['url']; ?>"
+                <iframe width="100%" height="72%" src="<?php echo $video->getUrl(); ?>"
                     title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
                 <div class="descricao-video">
                     <img src="./img/logo.png" alt="logo canal alura">
-                    <h3><?php echo $video['title']; ?></h3>
+                    <h3><?php echo $video->getTitle(); ?></h3>
                     <div class="acoes-video">
-                        <a href="/editar?id=<?php echo $video['id']; ?>">Editar</a>
-                        <a href="/remover?id=<?php echo $video['id']; ?>">Excluir</a>
+                        <a href="/editar?id=<?php echo $video->getId(); ?>">Editar</a>
+                        <a href="/remover?id=<?php echo $video->getId(); ?>">Excluir</a>
                     </div>
                 </div>
             </li>
@@ -60,10 +65,10 @@ $videoList = $pdo->query("SELECT * FROM videos;")->fetchAll(\PDO::FETCH_ASSOC);
                 <img src="/img/error-404-1.png" class="img-404" title="404"></img>
                 <div class="descricao-video">
                     <img src="./img/logo.png" alt="logo canal alura">
-                    <h3><?php echo $video['title']; ?></h3>
+                    <h3><?php echo $video->getTitle(); ?></h3>
                     <div class="acoes-video">
-                        <a href="/editar?id=<?php echo $video['id']; ?>">Editar</a>
-                        <a href="/remover?id=<?php echo $video['id']; ?>">Excluir</a>
+                        <a href="/editar?id=<?php echo $video->getId(); ?>">Editar</a>
+                        <a href="/remover?id=<?php echo $video->getId(); ?>">Excluir</a>
                     </div>
                 </div>
             </li>

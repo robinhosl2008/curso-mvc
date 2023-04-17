@@ -7,7 +7,7 @@ if ($id !== false) {
     $title = filter_input(INPUT_POST, 'titulo');
     
     if ($url && $title) {
-        $dbPath = __DIR__ . "\db.sqlite";
+        $dbPath = __DIR__ . "/db.sqlite";
         $pdo = new \PDO("sqlite:{$dbPath}");
 
         $sqlUpdate = "UPDATE videos SET url = ?, title = ? WHERE id = ?;";
@@ -17,10 +17,10 @@ if ($id !== false) {
         $statement->bindValue(3, $id);
         
         if ($statement->execute()) {
-            header("location: ./?success=1&message=Vídeo Atualizado");
+            header("location: /../?success=1&message=Vídeo Atualizado");
             exit();
         }
 
-        header("location: ./?success=0&message=Erro ao atualizar o vídeo");
+        header("location: /../?success=0&message=Erro ao atualizar o vídeo");
     }
 }

@@ -1,5 +1,15 @@
 <?php
 
+use Alura\CursoMvc\Controller\VideoController;
+use Alura\CursoMvc\Entity\Video;
+use Alura\CursoMvc\Repository\VideoRepository;
+
+$acao = filter_input(INPUT_GET, 'acao');
+if ($acao !== null) {
+    $videoController = new VideoController();
+    die();
+}
+
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 $video = [
@@ -9,14 +19,8 @@ $video = [
 ];
 
 if ($id !== false) {
-    $dbPath = __DIR__ . "/../db.sqlite";
-    $pdo = new PDO("sqlite:{$dbPath}");
-
-    $statement = $pdo->query("SELECT * FROM videos WHERE id = ?;");
-    $statement->bindValue(1, $id);
-    $statement->execute();
-
-    $video = $statement->fetch(\PDO::FETCH_ASSOC);
+    $videoRepository = new VideoRepository();
+    $video = $videoRepository->getVideo($id);
 }
 ?>
 <!DOCTYPE html>
@@ -53,8 +57,8 @@ if ($id !== false) {
 
     <main class="container">
 
-        <form class="container__formulario" method="post" 
-            action="<?php echo $id !== false ? '../editar-video.php' : '../novo-video.php';?>">
+        <form class="container__formulario" method="post"  
+            action="index.php?acao=<?php echo ($id !== false) ? 'editar-video' : 'adicionar-video'?>">
             <h2 class="formulario__titulo">Envie um vídeo!</h3>
                 <input type="hidden" id="id" name="id" value="<?php echo (is_array($video) && array_key_exists('id', $video)) ? $video['id'] : ''; ?>" />
                 <div class="formulario__campo">

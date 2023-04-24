@@ -23,8 +23,8 @@
             <a class="logo" href="./"></a>
 
             <div class="cabecalho__icones">
-                <a href="./adicionar" class="cabecalho__videos"></a>
-                <a href="./login" class="cabecalho__sair">Sair</a>
+                <a href="/adicionar" class="cabecalho__videos"></a>
+                <a href="/login" class="cabecalho__sair">Sair</a>
             </div>
         </nav>
 
@@ -32,22 +32,19 @@
 
     <main class="container">
 
-        <form class="container__formulario">
+        <form method="post" action="/logar" class="container__formulario">
             <h2 class="formulario__titulo">Efetue login</h3>
                 <div class="formulario__campo">
-                    <label class="campo__etiqueta" for="usuario">Usuário</label>
-                    <input name="user" class="campo__escrita" required
-                        placeholder="Digite seu usuário" id='usuario' />
+                    <label class="campo__etiqueta" for="email">E-mail</label>
+                    <input type="email" id='email' name="email" class="campo__escrita" required placeholder="Digite seu usuário" />
                 </div>
-
 
                 <div class="formulario__campo">
-                    <label class="campo__etiqueta" for="senha">Senha</label>
-                    <input type="password" name="senha" class="campo__escrita" required placeholder="Digite sua senha"
-                        id='senha' />
+                    <label class="campo__etiqueta" for="password">Senha</label>
+                    <input type="password" id='password'name="password" class="campo__escrita" required placeholder="Digite sua senha" />
                 </div>
 
-                <input class="formulario__botao" type="submit" value="Entrar" />
+                <input type="submit" class="formulario__botao" value="Entrar" />
         </form>
 
     </main>

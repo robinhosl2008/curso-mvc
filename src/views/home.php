@@ -1,15 +1,3 @@
-<?php
-
-require_once '../vendor/autoload.php';
-
-use Alura\CursoMvc\Repository\VideoRepository;
-
-$dbPath = __DIR__ . "/db.sqlite";
-$pdo = new PDO("sqlite:{$dbPath}");
-
-$repository = new VideoRepository($pdo);
-$videos = $repository->getAllVideos();
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -32,8 +20,8 @@ $videos = $repository->getAllVideos();
             <a class="logo" href="./"></a>
 
             <div class="cabecalho__icones">
-                <a href="./adicionar" class="cabecalho__videos"></a>
-                <a href="./login" class="cabecalho__sair">Sair</a>
+                <a href="/adicionar" class="cabecalho__videos"></a>
+                <a href="/login" class="cabecalho__sair">Sair</a>
             </div>
         </nav>
 

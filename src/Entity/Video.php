@@ -14,7 +14,10 @@ class Video
         string $title
     )
     {
-        $this->setId($id);
+        if (is_int($id)) {
+            $this->setId($id);
+        }
+
         $this->setUrl($url);
         $this->setTitle($title);
     }

@@ -1,28 +1,3 @@
-<?php
-
-use Alura\CursoMvc\Controller\VideoController;
-use Alura\CursoMvc\Entity\Video;
-use Alura\CursoMvc\Repository\VideoRepository;
-
-$acao = filter_input(INPUT_GET, 'acao');
-if ($acao !== null) {
-    $videoController = new VideoController();
-    die();
-}
-
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-
-$video = [
-    'id' => '',
-    'url' => '',
-    'title' => ''
-];
-
-if ($id !== false) {
-    $videoRepository = new VideoRepository();
-    $video = $videoRepository->getVideo($id);
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -48,8 +23,8 @@ if ($id !== false) {
             <a class="logo" href="/"></a>
 
             <div class="cabecalho__icones">
-                <a href="./enviar-video.php" class="cabecalho__videos"></a>
-                <a href="../pages/login.php" class="cabecalho__sair">Sair</a>
+                <a href="/adicionar" class="cabecalho__videos"></a>
+                <a href="/login" class="cabecalho__sair">Sair</a>
             </div>
         </nav>
 
@@ -58,7 +33,7 @@ if ($id !== false) {
     <main class="container">
 
         <form class="container__formulario" method="post"  
-            action="index.php?acao=<?php echo ($id !== false) ? 'editar-video' : 'adicionar-video'?>">
+            action="/<?php echo ($id) ? 'editar' : 'adicionar'?>">
             <h2 class="formulario__titulo">Envie um vídeo!</h3>
                 <input type="hidden" id="id" name="id" value="<?php echo (is_array($video) && array_key_exists('id', $video)) ? $video['id'] : ''; ?>" />
                 <div class="formulario__campo">

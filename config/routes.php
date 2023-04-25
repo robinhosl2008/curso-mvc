@@ -19,4 +19,5 @@ return [
     'GET|/editar' => EditarVideosController::class,
     'POST|/editar' => EditarVideosController::class,
     'GET|/remover' => RemoverVideoController::class,
+    'GET|/remover-capa' => RemoverVideoController::class,
 ];

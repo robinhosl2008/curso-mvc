@@ -16,6 +16,15 @@ class UserRepository extends Connection
         $this->pdo = $conn->getPdo();
     }
 
+    public function updatePassword(int $id, string $password): void
+    {
+        $sql = "UPDATE users SET password = ? WHERE id = ?;";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $password);
+        $statement->bindValue(2, $id);
+        $statement->execute();
+    }
+
     public function getUser(User $user): array
     {
         $sql = "SELECT * FROM users WHERE email = ?;";

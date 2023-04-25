@@ -20,7 +20,18 @@ class RemoverVideoController implements Controller
                 throw new \InvalidArgumentException('Erro ao remover vídeo');
             }
 
-            $this->repository->removeVideo($_REQUEST['id']);
+            $id = $_REQUEST['id'];
+            $acao = $_REQUEST['acao'];
+
+            switch ($acao) {
+                case 'remover-video':
+                    $this->repository->removeVideo($id);
+                    break;
+                case 'remover-capa':
+                    $this->repository->removeCapa($id);
+                    break;
+            }
+
             header("location: /");
             exit();
         }

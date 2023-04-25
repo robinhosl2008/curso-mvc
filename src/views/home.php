@@ -53,7 +53,10 @@
                     <h3><?php echo $video->getTitle(); ?></h3>
                     <div class="acoes-video">
                         <a href="/editar?id=<?php echo $video->getId(); ?>">Editar</a>
-                        <a href="/remover?id=<?php echo $video->getId(); ?>">Excluir</a>
+                        <?php if ($video->getImgPath()): ?>
+                        <a href="/remover-capa?acao=remover-capa&id=<?php echo $video->getId(); ?>">Remover Capa</a>
+                        <?php endif; ?>
+                        <a href="/remover?acao=remover-video&id=<?php echo $video->getId(); ?>">Excluir</a>
                     </div>
                 </div>
             </li>
@@ -67,6 +70,9 @@
                     <h3><?php echo $video->getTitle(); ?></h3>
                     <div class="acoes-video">
                         <a href="/editar?id=<?php echo $video->getId(); ?>">Editar</a>
+                        <?php if ($video->getImgPath()): ?>
+                        <a href="/remover-capa?acao=remover-capa&id=<?php echo $video->getId(); ?>">Remover Capa</a>
+                        <?php endif; ?>
                         <a href="/remover?id=<?php echo $video->getId(); ?>">Excluir</a>
                     </div>
                 </div>

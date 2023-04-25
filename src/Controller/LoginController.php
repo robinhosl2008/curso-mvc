@@ -39,6 +39,10 @@ class LoginController implements Controller
         $passwordSuccess = password_verify($password, $user['result']['password'] ?? '');
         
         if ($passwordSuccess) {
+            if (password_needs_rehash($user['result']['password'], PASSWORD_ARGON2ID)) {
+                $this->repository->updatePassword($user['result']['id'], password_hash($password, PASSWORD_ARGON2ID));
+            }
+
             session_start();
             $_SESSION['logado'] = 1;
             header('location: /');

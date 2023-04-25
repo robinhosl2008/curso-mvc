@@ -66,6 +66,14 @@ class VideoRepository extends Connection
         return $statement->execute();
     }
 
+    public function removeCapa(int $id): void
+    {
+        $sql = "UPDATE videos SET imagePath = '' WHERE id = ?;";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $id);
+        $statement->execute();
+    }
+
     public function updateVideo(Video $video): bool
     {
         $sql = "UPDATE videos SET url = ?, title = ?, imagePath = ? WHERE id = ?;";

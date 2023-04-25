@@ -4,14 +4,16 @@ namespace Alura\CursoMvc\Entity;
 
 class Video
 {
-    public readonly ?int $id;
-    public readonly string $url;
-    public readonly string $title;
+    public ?int $id;
+    public string $url;
+    public string $title;
+    public ?string $imgPath;
 
     public function __construct(
         ?int $id,
         string $url,
-        string $title
+        string $title,
+        ?string $imgPath
     )
     {
         if (is_int($id)) {
@@ -20,6 +22,10 @@ class Video
 
         $this->setUrl($url);
         $this->setTitle($title);
+
+        if (is_string($imgPath)) {
+            $this->setImgPath($imgPath);
+        }
     }
 
     public function setId(int $id): void
@@ -49,6 +55,15 @@ class Video
         $this->title = $title;
     }
 
+    public function setImgPath(string $imgPath): void
+    {
+        if (!is_string($imgPath)) {
+            throw new \InvalidArgumentException();
+        }
+
+        $this->imgPath = $imgPath;
+    }
+
     public function getId(): string
     {
         return $this->id;
@@ -62,5 +77,10 @@ class Video
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getImgPath(): string
+    {
+        return $this->imgPath;
     }
 }

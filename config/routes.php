@@ -17,5 +17,6 @@ return [
     'GET|/adicionar' => AdicionarVideoController::class,
     'POST|/adicionar' => AdicionarVideoController::class,
     'GET|/editar' => EditarVideosController::class,
+    'POST|/editar' => EditarVideosController::class,
     'GET|/remover' => RemoverVideoController::class,
 ];

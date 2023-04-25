@@ -25,5 +25,5 @@ $controller->processaRequisicao();
 $isLoginRoute = $pathInfo === '/login';
 if (!array_key_exists('logado', $_SESSION) && !$isLoginRoute) {
     header('location: /login');
-    return;
+    exit();
 }

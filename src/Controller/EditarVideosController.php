@@ -2,7 +2,9 @@
 
 namespace Alura\CursoMvc\Controller;
 
+use Alura\CursoMvc\Entity\Video;
 use Alura\CursoMvc\Repository\VideoRepository;
+use InvalidArgumentException;
 
 class EditarVideosController implements Controller
 {
@@ -24,11 +26,37 @@ class EditarVideosController implements Controller
 
             $id = $_REQUEST['id'];
 
-            if ($id && !is_nan($id)) {
-                $video = $this->exibirFormVideo($id);
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+                if ($id && !is_nan($id)) {
+                    $video = $this->exibirFormVideo($id);
+                }
+                
+                require_once __DIR__ . '/../views/formulario.php';
+            } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $imagePath = $_REQUEST['imagePath'];
+                if ($_FILES && is_array($_FILES) && array_key_exists('img', $_FILES) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
+                    $imgExtension = explode('/', $_FILES['img']['type'])[1];
+                    $imagePath = __DIR__ . '/../../public/img/uploads/' . uniqid('uploaded_') . '.' . $imgExtension;
+
+                    move_uploaded_file(
+                        $_FILES['img']['tmp_name'],
+                        $imagePath
+                    );
+                }
+
+                $video = new Video(
+                    $id, 
+                    $_REQUEST['url'], 
+                    $_REQUEST['titulo'], 
+                    $imagePath
+                );
+                
+                $this->editaVideo($video);
+                header("location: /?error=0");
             }
-            
-            require_once __DIR__ . '/../views/formulario.php';
+
+            exit();
         }
 
         session_destroy();
@@ -40,13 +68,13 @@ class EditarVideosController implements Controller
         return $this->repository->getVideo($_REQUEST['id']);
     }
 
-    // public function editaVideo(Video $video)
-    // {
-    //     if (!$video->getId() || !$video->getUrl() || !$video->getTitle()) {
-    //         throw new InvalidArgumentException("Objeto 'Video' incompleto.");
-    //     }
+    public function editaVideo(Video $video)
+    {
+        if (!$video->getId() || !$video->getUrl() || !$video->getTitle()) {
+            throw new InvalidArgumentException("Objeto 'Video' incompleto.");
+        }
 
-    //     $videoRepository = new VideoRepository();
-    //     $videoRepository->updateVideo($video);
-    // }
+        $videoRepository = new VideoRepository();
+        $videoRepository->updateVideo($video);
+    }
 }

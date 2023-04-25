@@ -41,19 +41,21 @@ class VideoRepository extends Connection
             return new Video(
                 $videoData['id'], 
                 $videoData['url'], 
-                $videoData['title']
+                $videoData['title'],
+                $videoData['imagePath']
             );
         }, $videoList);
     }
 
-    public function addVideo(Video $video): bool
+    public function addVideo(Video $video): void
     {
-        $sql = "INSERT INTO videos (url, title) VALUES (?, ?);";
+        $sql = "INSERT INTO videos (url, title, imagePath) VALUES (?, ?, ?);";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $video->getUrl(), PDO::PARAM_STR);
         $statement->bindValue(2, $video->getTitle(), PDO::PARAM_STR);
+        $statement->bindValue(3, $video->getImgPath(), PDO::PARAM_STR);
         
-        return $statement->execute();
+        $statement->execute();
     }
 
     public function removeVideo(int $id): bool
@@ -66,11 +68,12 @@ class VideoRepository extends Connection
 
     public function updateVideo(Video $video): bool
     {
-        $sql = "UPDATE videos SET url = ?, title = ? WHERE id = ?;";
+        $sql = "UPDATE videos SET url = ?, title = ?, imagePath = ? WHERE id = ?;";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $video->getUrl());
         $statement->bindValue(2, $video->getTitle());
-        $statement->bindValue(3, $video->getId());
+        $statement->bindValue(3, $video->getImgPath());
+        $statement->bindValue(4, $video->getId());
         
         return $statement->execute();
     }

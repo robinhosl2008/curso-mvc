@@ -22,6 +22,7 @@ class RemoverVideoController implements Controller
 
             $this->repository->removeVideo($_REQUEST['id']);
             header("location: /");
+            exit();
         }
 
         session_destroy();

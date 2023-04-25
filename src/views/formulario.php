@@ -32,7 +32,7 @@
 
     <main class="container">
 
-        <form class="container__formulario" method="post"  
+        <form class="container__formulario" method="post" enctype="multipart/form-data"  
             action="/<?php echo ($id) ? 'editar' : 'adicionar'?>">
             <h2 class="formulario__titulo">Envie um vídeo!</h3>
                 <input type="hidden" id="id" name="id" value="<?php echo (is_array($video) && array_key_exists('id', $video)) ? $video['id'] : ''; ?>" />
@@ -45,9 +45,16 @@
 
 
                 <div class="formulario__campo">
-                    <label class="campo__etiqueta" for="titulo">Titulo do vídeo</label>
+                    <label class="campo__etiqueta" for="titulo">Titulo do Vídeo</label>
                     <input name="titulo" class="campo__escrita" required placeholder="Neste campo, dê o nome do vídeo"
                         id='titulo' value="<?php echo (is_array($video) && array_key_exists('title', $video)) ? $video['title'] : ''; ?>" />
+                </div>
+
+                <div class="formulario__campo">
+                    <label class="campo__etiqueta" for="img">Imagem do Vídeo</label>
+                    <input type="file" id='img' name="img"
+                        accept="image/*" class="campo__escrita" />
+                    <input type="hidden" id="imagePath" name="imagePath" value="<?php echo (is_array($video) && array_key_exists('imagePath', $video)) ? $video['imagePath'] : ''; ?>" />
                 </div>
 
                 <input class="formulario__botao" type="submit" value="Enviar" />

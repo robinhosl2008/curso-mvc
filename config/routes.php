@@ -7,6 +7,8 @@ use Alura\CursoMvc\Controller\LoginController;
 use Alura\CursoMvc\Controller\EditarVideosController;
 use Alura\CursoMvc\Controller\AdicionarVideoController;
 use Alura\CursoMvc\Controller\RemoverVideoController;
+use Alura\CursoMvc\Controller\API\ApiVideoController;
+use Alura\CursoMvc\Controller\API\ApiSaveVideoController;
 
 return [
     'GET|' => homeVideosController::class,
@@ -20,4 +22,6 @@ return [
     'POST|/editar' => EditarVideosController::class,
     'GET|/remover' => RemoverVideoController::class,
     'GET|/remover-capa' => RemoverVideoController::class,
+    'GET|/api-video-list' => ApiVideoController::class,
+    'POST|/api-save-video' => ApiSaveVideoController::class,
 ];

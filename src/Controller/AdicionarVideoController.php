@@ -44,13 +44,19 @@ class AdicionarVideoController implements Controller
     {
         $imgPath = '';
         if (is_array($_FILES) && array_key_exists('img', $_FILES) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
-            $imgExtension = explode('/', $_FILES['img']['type'])[1];
-            $imgPath = 'img/uploads/' . uniqid('uploaded_') . '.' . $imgExtension;
+            // Verificando se realmente veio um arquivo do tipo imagem.
+            $fInfo = new \finfo(FILEINFO_MIME_TYPE);
+            $fType = $fInfo->file($_FILES['img']['tmp_name']);
 
-            move_uploaded_file(
-                $_FILES['img']['tmp_name'],
-                $imgPath
-            );
+            if (str_starts_with($fType, 'image/')) {
+                $imgExtension = explode('/', $fType)[1];
+                $imgPath = 'img/uploads/' . uniqid('uploaded_') . '.' . $imgExtension;
+
+                move_uploaded_file(
+                    $_FILES['img']['tmp_name'],
+                    $imgPath
+                );
+            }
         }
 
         $objVideo = new Video(null, $_REQUEST['url'], $_REQUEST['titulo'], $imgPath);

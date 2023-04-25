@@ -33,10 +33,21 @@
             if (str_starts_with($video->getUrl(), "http")) {
         ?>
             <li class="videos__item">
-                <iframe width="100%" height="72%" src="<?php echo $video->getUrl(); ?>"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
+                <?php 
+                    $imagePath = '';
+                    if ($video->getImgPath()) { ?>
+                        <a style="width: 100%;" href="<?php echo $video->getUrl(); ?>">
+                            <img 
+                            src="<?php echo $video->getImgPath(); ?>" 
+                            alt="<?php echo $video->getTitle(); ?>">
+                        </a>
+                    <?php } else { ?>
+                        <iframe width="100%" height="72%" src="<?php echo $video->getUrl(); ?>"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    <?php } ?>
+                
                 <div class="descricao-video">
                     <img src="./img/logo.png" alt="logo canal alura">
                     <h3><?php echo $video->getTitle(); ?></h3>

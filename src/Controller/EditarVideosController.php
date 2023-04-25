@@ -37,7 +37,7 @@ class EditarVideosController implements Controller
                 $imagePath = $_REQUEST['imagePath'];
                 if ($_FILES && is_array($_FILES) && array_key_exists('img', $_FILES) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
                     $imgExtension = explode('/', $_FILES['img']['type'])[1];
-                    $imagePath = __DIR__ . '/../../public/img/uploads/' . uniqid('uploaded_') . '.' . $imgExtension;
+                    $imagePath = 'img/uploads/' . uniqid('uploaded_') . '.' . $imgExtension;
 
                     move_uploaded_file(
                         $_FILES['img']['tmp_name'],

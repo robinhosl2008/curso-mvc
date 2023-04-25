@@ -45,7 +45,7 @@ class AdicionarVideoController implements Controller
         $imgPath = '';
         if (is_array($_FILES) && array_key_exists('img', $_FILES) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
             $imgExtension = explode('/', $_FILES['img']['type'])[1];
-            $imgPath = __DIR__ . '/../../public/img/uploads/' . uniqid('uploaded_') . '.' . $imgExtension;
+            $imgPath = 'img/uploads/' . uniqid('uploaded_') . '.' . $imgExtension;
 
             move_uploaded_file(
                 $_FILES['img']['tmp_name'],

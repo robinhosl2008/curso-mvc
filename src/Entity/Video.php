@@ -7,7 +7,7 @@ class Video
     public ?int $id;
     public string $url;
     public string $title;
-    public ?string $imgPath;
+    public ?string $imgPath = '';
 
     public function __construct(
         ?int $id,

@@ -3,11 +3,14 @@
 namespace Alura\CursoMvc\Controller;
 
 use Alura\CursoMvc\Entity\Video;
+use Alura\CursoMvc\Helpers\FlashMessageTrait;
 use Alura\CursoMvc\Repository\VideoRepository;
 use InvalidArgumentException;
 
 class EditarVideosController implements Controller
 {
+    use FlashMessageTrait;
+
     private VideoRepository $repository;
 
     public function __construct()
@@ -24,7 +27,7 @@ class EditarVideosController implements Controller
                 'title' => ''
             ];
 
-            $id = $_REQUEST['id'];
+            $id = (array_key_exists('id', $_REQUEST)) ? $_REQUEST['id'] : null;
 
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -53,8 +56,8 @@ class EditarVideosController implements Controller
                 );
                 
                 $this->editaVideo($video);
-                $_SESSION['message'] = "Editado com sucesso!";
-                header("location: /editar");
+                $this->addMessage("Editado com sucesso!");
+                header("location: /editar?id=".$id);
             }
 
             exit();

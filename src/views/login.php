@@ -42,8 +42,8 @@
 
         <form method="post" action="/logar" class="container__formulario form-group">
             <h2 class="msg"><?php 
-                echo ($_SESSION && array_key_exists('error-message', $_SESSION)) ? $_SESSION['error-message'] : ''; 
-                unset($_SESSION['error-message']);    
+                echo ($_SESSION && array_key_exists('message', $_SESSION)) ? $_SESSION['message'] : ''; 
+                unset($_SESSION['message']);    
             ?></h2>
             <h2 class="formulario__titulo">Efetue login</h3>
                 <div class="formulario__campo">

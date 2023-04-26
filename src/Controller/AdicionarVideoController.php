@@ -3,11 +3,14 @@
 namespace Alura\CursoMvc\Controller;
 
 use Alura\CursoMvc\Entity\Video;
+use Alura\CursoMvc\Helpers\FlashMessageTrait;
 use Alura\CursoMvc\Repository\VideoRepository;
 use InvalidArgumentException;
 
 class AdicionarVideoController implements Controller
 {
+    use FlashMessageTrait;
+
     private VideoRepository $repository;
 
     public function __construct()
@@ -62,7 +65,7 @@ class AdicionarVideoController implements Controller
         $objVideo = new Video(null, $_REQUEST['url'], $_REQUEST['titulo'], $imgPath);
         $this->repository->addVideo($objVideo);
         
-        $_SESSION['message'] = "Novo vídeo adicionado!";
+        $this->addMessage("Novo vídeo adicionado!");
         header("location: /");
         exit();
     }

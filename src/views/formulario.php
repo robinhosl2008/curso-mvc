@@ -12,6 +12,21 @@
     <link rel="stylesheet" href="../css/flexbox.css">
     <title>AluraPlay</title>
     <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+        
+    <style>
+        form {
+            margin-top: 60px;
+        }
+        
+        h2.msg {
+            position: absolute;
+            top: 100px;
+            color: red;
+            width: 100%;
+            font-size: 25px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,6 +49,11 @@
 
         <form class="container__formulario" method="post" enctype="multipart/form-data"  
             action="/<?php echo ($id) ? 'editar' : 'adicionar'?>">
+            <h2 class="msg"><?php 
+                echo ($_SESSION && array_key_exists('message', $_SESSION)) ? $_SESSION['message'] : ''; 
+                unset($_SESSION['message']);    
+            ?></h2>
+
             <h2 class="formulario__titulo">Envie um vídeo!</h3>
                 <input type="hidden" id="id" name="id" value="<?php echo (is_array($video) && array_key_exists('id', $video)) ? $video['id'] : ''; ?>" />
                 <div class="formulario__campo">

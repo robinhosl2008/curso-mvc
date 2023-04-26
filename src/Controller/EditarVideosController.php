@@ -53,7 +53,8 @@ class EditarVideosController implements Controller
                 );
                 
                 $this->editaVideo($video);
-                header("location: /?error=0");
+                $_SESSION['message'] = "Editado com sucesso!";
+                header("location: /editar");
             }
 
             exit();

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+// $(document).ready(function() {
     var email = document.querySelector('input[name="email"]');
     var password = document.querySelector('input[name="password"]');
 
@@ -15,4 +15,4 @@ $(document).ready(function() {
             document.querySelector('.msg').innerText = '';
         }, 1000);
     }
-});
+// });

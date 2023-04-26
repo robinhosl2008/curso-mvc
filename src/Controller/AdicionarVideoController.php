@@ -62,7 +62,8 @@ class AdicionarVideoController implements Controller
         $objVideo = new Video(null, $_REQUEST['url'], $_REQUEST['titulo'], $imgPath);
         $this->repository->addVideo($objVideo);
         
-        header("location: /?message=Vídeo Salvo");
+        $_SESSION['message'] = "Novo vídeo adicionado!";
+        header("location: /");
         exit();
     }
 }

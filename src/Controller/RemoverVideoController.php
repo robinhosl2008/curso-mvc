@@ -26,9 +26,11 @@ class RemoverVideoController implements Controller
             switch ($acao) {
                 case 'remover-video':
                     $this->repository->removeVideo($id);
+                    $_SESSION['message'] = "Vídeo removido com sucesso!";
                     break;
                 case 'remover-capa':
                     $this->repository->removeCapa($id);
+                    $_SESSION['message'] = "Capa removida com sucesso!";
                     break;
             }
 

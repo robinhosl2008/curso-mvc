@@ -5,7 +5,9 @@ namespace Alura\CursoMvc\Controller;
 use Alura\CursoMvc\Entity\Video;
 use Alura\CursoMvc\Helpers\FlashMessageTrait;
 use Alura\CursoMvc\Repository\VideoRepository;
-use InvalidArgumentException;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class AdicionarVideoController implements Controller
 {
@@ -18,7 +20,7 @@ class AdicionarVideoController implements Controller
         $this->repository = new VideoRepository();
     }
 
-    public function processaRequisicao(): void
+    public function processaRequisicao(ServerRequestInterface $request): ResponseInterface
     {
         if ($_SESSION && array_key_exists('logado', $_SESSION) && $_SESSION['logado'] == 1) {
             $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -32,18 +34,30 @@ class AdicionarVideoController implements Controller
 
                 $id = null;
 
-                require_once __DIR__ . '/../views/formulario.php';
-                exit();
+                return new Response(
+                    302, [
+                        'location' => '/adicionar'
+                    ]
+                );
+            } else {
+                $this->addNovoVideo($request);
+                return new Response(
+                    302, [
+                        'location' => '/'
+                    ]
+                );
             }
-
-            $this->addNovoVideo();
+        } else {
+            session_destroy();
+            return new Response(
+                302, [
+                    'location' => '/login'
+                ]
+            );
         }
-
-        session_destroy();
-        header('location: /login');
     }
 
-    public function addNovoVideo(): void
+    public function addNovoVideo(ServerRequestInterface $request): void
     {
         $imgPath = '';
         if (is_array($_FILES) && array_key_exists('img', $_FILES) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
@@ -62,11 +76,13 @@ class AdicionarVideoController implements Controller
             }
         }
 
-        $objVideo = new Video(null, $_REQUEST['url'], $_REQUEST['titulo'], $imgPath);
+        $params = $request->getParsedBody();
+        $url = filter_var($params['url'], FILTER_VALIDATE_URL);
+        $title = filter_var($params['titulo']);
+
+        $objVideo = new Video(null, $url, $title, $imgPath);
         $this->repository->addVideo($objVideo);
         
         $this->addMessage("Novo vídeo adicionado!");
-        header("location: /");
-        exit();
     }
 }

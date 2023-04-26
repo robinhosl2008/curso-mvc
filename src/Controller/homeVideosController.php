@@ -3,6 +3,9 @@
 namespace Alura\CursoMvc\Controller;
 
 use Alura\CursoMvc\Repository\VideoRepository;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class HomeVideosController implements Controller
 {
@@ -13,16 +16,22 @@ class HomeVideosController implements Controller
         $this->repository = new VideoRepository();
     }
 
-    public function processaRequisicao(): void
+    public function processaRequisicao(ServerRequestInterface $request): ResponseInterface
     {
         if ($_SESSION && array_key_exists('logado', $_SESSION) && $_SESSION['logado'] == 1) {
             $videos = $this->allVideos();
-            require_once __DIR__ . "/../views/home.php";
-            exit();
-        }
 
-        session_destroy();
-        header('location: /login');
+            return new Response(
+                302, [
+                'location' => '/'
+            ]);
+        } else {
+            session_destroy();
+            return new Response(
+                302, [
+                'location' => '/login'
+            ]);
+        }
     }
 
     public function allVideos(): array

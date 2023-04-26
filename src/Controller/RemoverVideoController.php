@@ -4,6 +4,9 @@ namespace Alura\CursoMvc\Controller;
 
 use Alura\CursoMvc\Helpers\FlashMessageTrait;
 use Alura\CursoMvc\Repository\VideoRepository;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class RemoverVideoController implements Controller
 {
@@ -16,10 +19,13 @@ class RemoverVideoController implements Controller
         $this->repository = new VideoRepository();
     }
 
-    public function processaRequisicao(): void
+    public function processaRequisicao(ServerRequestInterface $request): ResponseInterface
     {
         if ($_SESSION && array_key_exists('logado', $_SESSION) && $_SESSION['logado'] == 1) {
-            if (!is_array($_REQUEST) && !array_key_exists('id', $_REQUEST)) {
+            $queryParams = $request->getQueryParams();
+            $id = filter_var($queryParams['id'], FILTER_VALIDATE_INT);
+
+            if (is_nan($id)) {
                 throw new \InvalidArgumentException('Erro ao remover vídeo');
             }
 
@@ -37,11 +43,17 @@ class RemoverVideoController implements Controller
                     break;
             }
 
-            header("location: /");
-            exit();
+            return new Response(
+                301, [
+                    'location' => '/'
+                ]
+            );
+        } else {
+            session_destroy();
+            return new Response(
+                302, [
+                'location' => '/login'
+            ]);
         }
-
-        session_destroy();
-        header('location: /login');
     }
 }

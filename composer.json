@@ -14,5 +14,8 @@
             "email": "robson.lourenco.pacheco@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "psr/http-message": "^2.0",
+        "nyholm/psr7": "^1.7"
+    }
 }

@@ -6,6 +6,9 @@ use Alura\CursoMvc\Entity\User;
 use Alura\CursoMvc\Helpers\FlashMessageTrait;
 use Alura\CursoMvc\Helpers\FlashMessageTrait2;
 use Alura\CursoMvc\Repository\UserRepository;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class LoginController implements Controller
 {
@@ -21,10 +24,10 @@ class LoginController implements Controller
         $this->repository = new UserRepository();
     }
 
-    public function processaRequisicao(): void
+    public function processaRequisicao(ServerRequestInterface $request): ResponseInterface
     {
         if (array_key_exists('PATH_INFO', $_SERVER) && $_SERVER['PATH_INFO'] === "/logar") {
-            $this->logar();
+            $this->logar($request);
             exit();
         }
 
@@ -32,13 +35,19 @@ class LoginController implements Controller
             session_destroy();
         }
 
-        require_once __DIR__ . '/../views/login.php';
+        return new Response(
+            302, 
+            [
+                'location' => '/login'
+            ]
+        );
     }
 
-    public function logar(): void
+    public function logar(ServerRequestInterface $request): ResponseInterface
     {
-        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-        $password = filter_input(INPUT_POST, 'password');
+        $requestBody = $request->getParsedBody();
+        $email = filter_var($requestBody['email'], FILTER_VALIDATE_EMAIL);
+        $password = filter_var($requestBody['password']);
 
         $newUser = new User(null, $email, $password);
         $user = $this->repository->getUser($newUser);
@@ -52,10 +61,14 @@ class LoginController implements Controller
 
             session_start();
             $_SESSION['logado'] = 1;
-            header('location: /');
+            return new Response(302, [
+                'location' => '/'
+            ]);
         } else {
             $this->flashMessage("Usuário e senha inválidos!");
-            header('location: /login');
+            return new Response(302, [
+                'location' => '/login'
+            ]);
         }
     }
 }

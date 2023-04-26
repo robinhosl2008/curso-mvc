@@ -24,8 +24,12 @@ body {
 
 /* ESTILOS DO HEADER */
 
+body > header {
+    position: absolute;
+}
+
 .cabecalho {
-    background-color: white;
+    background-color: whitesmoke;
     position: fixed;
     top: 0;
     height: 80px;
